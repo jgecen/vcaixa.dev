@@ -1,11 +1,8 @@
-var knex = require("knex")({
-  client: "pg",
-  connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    password: "postgres",
-    database: "vcaixa"
-  }
-});
+var knexFactory = require("knex");
+var knexConfig = require("../knexfile");
+var knex = knexFactory(knexConfig.development);
+if (process.env.NODE_ENV == "test") {
+  knex = knexFactory(knexConfig.test);
+}
 
 module.exports = knex;

@@ -1,6 +1,6 @@
-const knex = require("../knex-test");
+const knex = require("../../src/knex");
 const factory = require("../../src/repository/factory.repository");
-const categoriaRepository = factory.createRepositoryCategoria(knex);
+const categoriaRepository = factory.createRepositoryCategoria();
 
 describe("Teste de Repository de Categoria", () => {
   afterAll(async () => {
