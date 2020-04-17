@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "migrate-test": "knex migrate:latest --env test",
     "migrate": "knex migrate:latest",
     "migrate-all": "yarn migrate ; yarn migrate-test"
