@@ -5,6 +5,7 @@ exports.up = function (knex) {
     table.enu("tipo", ["D", "C"]).notNullable();
     table.string("descricao").notNullable();
     table.decimal("valor").notNullable();
+    table.date("data").defaultTo(knex.fn.now());
     table.timestamp("created_at").defaultTo(knex.fn.now());
   });
 };
