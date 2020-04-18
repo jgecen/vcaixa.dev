@@ -3,6 +3,9 @@ const knexDefault = require("../knex");
 const factoryRepository = {
   createRepositoryCategoria: (knex = knexDefault) => {
     return createRepository({ knex, table: "categorias" });
+  },
+  createRepositoryMovimento: (knex = knexDefault) => {
+    return createRepository({ knex, table: "movimentos" });
   }
 };
 
