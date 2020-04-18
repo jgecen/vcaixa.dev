@@ -24,7 +24,6 @@ describe("Teste de Service de Movimentos", () => {
 
   test("testando a function movimentoService.movimentosDoDia, sucesso", async () => {
     const data = await movimentoService.movimentosDoDia();
-    console.log(data);
     expect(data).not.toBeNull();
   });
 });

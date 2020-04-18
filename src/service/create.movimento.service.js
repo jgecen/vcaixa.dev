@@ -8,6 +8,7 @@ const createMovimentoService = () => {
       return _buildResut(result);
     });
   };
+
   const _buildResut = (result) => {
     return new Promise((resolve, reject) => {
       resolve({
@@ -40,7 +41,8 @@ const createMovimentoService = () => {
   };
 
   return {
-    movimentosDoDia: _movimentosDoDia
+    movimentosDoDia: _movimentosDoDia,
+    save: _repositoryMovimento.save
   };
 };
 
