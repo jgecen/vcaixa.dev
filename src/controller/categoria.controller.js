@@ -25,7 +25,6 @@ const createCategoriaController = () => {
       _categoriaRepository
         .save(req.body)
         .then((data) => {
-          res.type("json");
           res.status(201);
           res.send({ message: "Recurso criado com sucesso!", categoria: data });
         })
@@ -35,9 +34,32 @@ const createCategoriaController = () => {
         });
     }
   };
+  const _put = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(422);
+      res.json({ errors: errors.array() });
+    } else {
+      _categoriaRepository
+        .update(req.body)
+        .then((data) => {
+          res.status(200);
+          res.send({
+            message: "Recurso alterado com sucesso!",
+            categoria: data
+          });
+        })
+        .catch((err) => {
+          res.status(412);
+          res.send({ erro: err.detail });
+        });
+    }
+  };
+
   return {
     get: _get,
-    post: _post
+    post: _post,
+    put: _put
   };
 };
 

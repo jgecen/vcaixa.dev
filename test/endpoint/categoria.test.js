@@ -2,6 +2,7 @@ const knex = require("../../src/knex");
 const app = require("../../src/server");
 const supertest = require("supertest");
 const request = supertest(app);
+let categoriaForUpdate = null;
 
 describe("Teste de endpoint categorias ", () => {
   afterAll(async () => {
@@ -14,6 +15,11 @@ describe("Teste de endpoint categorias ", () => {
       { nome: "Categoria 2" },
       { nome: "Categoria 3" }
     ]);
+
+    const respCategoriaForUpdate = await knex("categorias")
+      .returning("*")
+      .insert({ nome: "Categoria para alteração" });
+    categoriaForUpdate = respCategoriaForUpdate.pop();
   });
 
   it("POST /categorias SUCESS 201", (done) => {
@@ -28,6 +34,21 @@ describe("Teste de endpoint categorias ", () => {
           return done(err);
         }
         done();
+      });
+  });
+
+  it("PUT /categorias SUCESS 200", (done) => {
+    request
+      .put("/categorias")
+      .send({ id: categoriaForUpdate.id, nome: "ALTERADO" })
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.categoria.pop().nome).toBe("ALTERADO");
+
+        return done();
       });
   });
 
