@@ -4,6 +4,6 @@ const categoriaController = require("../controller/categoria.controller")();
 const categotiaValidation = require("./validation/categoria.validation");
 
 router.get("/", categoriaController.get);
-router.post("/", categoriaController.post);
+router.post("/", categotiaValidation, categoriaController.post);
 
 module.exports = router;

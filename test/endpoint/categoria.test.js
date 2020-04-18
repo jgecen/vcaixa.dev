@@ -8,7 +8,15 @@ describe("Teste de endpoint categorias ", () => {
     await knex("categorias").del();
   });
 
-  it("POST /categorias", (done) => {
+  beforeAll(async () => {
+    await knex("categorias").insert([
+      { nome: "Categoria 1" },
+      { nome: "Categoria 2" },
+      { nome: "Categoria 3" }
+    ]);
+  });
+
+  it("POST /categorias SUCESS 201", (done) => {
     request
       .post("/categorias")
       .send({ nome: "Despesas Alimentícias" })
@@ -20,6 +28,36 @@ describe("Teste de endpoint categorias ", () => {
           return done(err);
         }
         done();
+      });
+  });
+
+  it("POST /categorias ERR 422", (done) => {
+    request
+      .post("/categorias")
+      .send({ nome: "" })
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .expect(422)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.errors.length > 0).toBeTruthy();
+        return done();
+      });
+  });
+
+  it("GET /categorias SUCESS 200", (done) => {
+    request
+      .get("/categorias")
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        return done();
       });
   });
 });

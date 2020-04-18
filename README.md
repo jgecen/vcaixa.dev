@@ -1,14 +1,14 @@
 # v.caixa
+
 Teste para a vaga de Desenvolvedor na Tecnospeed
 
 # Instalçãoes
 
 Banco de dados PostgreSQL, crie um bancoo de dados:
 
->CREATE DATABASE vcaixa;
+> CREATE DATABASE vcaixa;
 
->CREATE DATABASE vcaixa_test;
-
+> CREATE DATABASE vcaixa_test;
 
 Instale o nvm
 
@@ -18,14 +18,18 @@ Instale a última versão do yarn
 
 Instalar o knex e pg globalmente
 
->npm install knex -g
+> npm install knex -g
 
->npm install pg -g
+> npm install pg -g
 
 Na pasta do projeto execute
 
->npm install
+> npm install
 
 Para criar as tabelas dos dois banco de dados
 
->yarn migrate-all
+> yarn migrate-all
+
+Para executar todos os testes os testes
+
+> yarn test

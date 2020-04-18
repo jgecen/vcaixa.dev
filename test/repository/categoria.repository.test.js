@@ -8,7 +8,12 @@ describe("Teste de Repository de Categoria", () => {
   });
 
   beforeAll(async () => {
-    await knex("categorias").insert({ nome: "Folha de Pagamento" });
+    await knex("categorias").insert([
+      { nome: "Folha de Pagamento" },
+      { nome: "Categoria 1" },
+      { nome: "Categoria 2" },
+      { nome: "Categoria 3" }
+    ]);
   });
 
   test("testando a function save, sucesso", async () => {
@@ -30,6 +35,7 @@ describe("Teste de Repository de Categoria", () => {
       .getAll()
       .then((data) => {
         expect(data).not.toBeNull();
+        expect(data.length > 3).toBeTruthy();
       })
       .catch((err) => {
         expect(err).toBeNull();

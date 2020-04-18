@@ -1,3 +1,4 @@
+const { validationResult } = require("express-validator");
 const factory = require("../../src/repository/factory.repository");
 
 const createCategoriaController = () => {
@@ -17,17 +18,22 @@ const createCategoriaController = () => {
   };
 
   const _post = (req, res) => {
-    _categoriaRepository
-      .save(req.body)
-      .then((data) => {
-        res.type("json");
-        res.status(201);
-        res.send({ message: "Recurso criado com sucesso!", categoria: data });
-      })
-      .catch((err) => {
-        res.status(412);
-        res.send({ erro: err.detail });
-      });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    } else {
+      _categoriaRepository
+        .save(req.body)
+        .then((data) => {
+          res.type("json");
+          res.status(201);
+          res.send({ message: "Recurso criado com sucesso!", categoria: data });
+        })
+        .catch((err) => {
+          res.status(412);
+          res.send({ erro: err.detail });
+        });
+    }
   };
   return {
     get: _get,
