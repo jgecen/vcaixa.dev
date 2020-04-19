@@ -1,4 +1,5 @@
 const createMovimentoService = require("../service/create.movimento.service");
+const { validationResult } = require("express-validator");
 
 const createMovimentoController = () => {
   const _movimentoService = createMovimentoService();

@@ -1,6 +1,6 @@
 const knexDefault = require("../knex");
-const createRepository = require("./method.default.repository");
-const createRepositoryMovimento = require("./method.movimento.repository");
+const createRepository = require("./default.repository");
+const createRepositoryMovimento = require("./movimento.repository");
 
 const factoryRepository = {
   createRepositoryCategoria: (knex = knexDefault) => {

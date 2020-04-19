@@ -46,7 +46,7 @@ describe("Teste de endpoint categorias ", () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.categoria.pop().nome).toBe("ALTERADO");
+        expect(res.body.recurso.pop().nome).toBe("ALTERADO");
 
         return done();
       });

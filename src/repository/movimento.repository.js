@@ -1,4 +1,4 @@
-const createDefaultRepository = require("./method.default.repository");
+const createDefaultRepository = require("./default.repository");
 
 const createMovimentoRepository = (config) => {
   const _knex = config.knex;
