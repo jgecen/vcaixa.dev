@@ -13,8 +13,6 @@ const createEmpresaService = () => {
   const _empresaPertenceAoDev = async (idEmpresa, urnDev) => {
     const dev = await _devRepo.devByUrn(urnDev);
     const empresa = await _empresaRepo.get(idEmpresa);
-    console.log(dev.id);
-    console.log(empresa.dev_id);
     return dev.id == empresa.dev_id;
   };
   return {
