@@ -19,7 +19,7 @@ const createRepository = (config) => {
   };
 
   const _get = (id) => {
-    return _knex(_table).where({ id }).select();
+    return _knex(_table).first().where({ id: id });
   };
 
   return {
