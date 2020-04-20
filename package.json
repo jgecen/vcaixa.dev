@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/app.js",
     "test": "jest --detectOpenHandles",
-    "test:cover": "jest --coverage",
+    "test:cover": "jest --detectOpenHandles --coverage",
     "test:W": "jest --detectOpenHandles --watchAll",
     "migrate-test": "knex migrate:latest --env test",
     "migrate": "knex migrate:latest",
