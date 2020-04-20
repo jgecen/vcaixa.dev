@@ -1,21 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const factorRepository = require("../repository/factory.repository");
-const createController = require("../controller/default.controller");
-
-const repository = factorRepository.createRepositoryCategoria();
-const categoriaController = createController(repository);
-
+const createCategoriaController = require("../controller/categoria.controller");
 const categoriaValidation = require("./validation/categoria.validation");
 const { checkSchema } = require("express-validator");
+const categoriaController = createCategoriaController();
+const createDevMiddleware = require("../middleware/create.dev.middleware");
+const devMiddleware = createDevMiddleware();
 
-router.get("/", categoriaController.getAll);
-router.get("/:id", categoriaController.get);
-router.delete("/:id", categoriaController.del);
+router.use("/:urnDev/:idEmpresa", devMiddleware.devContemEmpresa);
 
-router.post("/", categoriaValidation, categoriaController.post);
+router.get("/:urnDev/:idEmpresa", categoriaController.getAll);
+router.get("/:urnDev/:idEmpresa/:id", categoriaController.get);
+router.delete("/:urnDev/:idEmpresa/:id", categoriaController.del);
+
+router.post("/:urnDev/:idEmpresa", categoriaValidation, categoriaController.post);
 router.put(
-  "/",
+  "/:urnDev/:idEmpresa",
   checkSchema({
     id: {
       notEmpty: true,

@@ -3,33 +3,44 @@ const factory = require("../../src/repository/factory.repository");
 const categoriaRepository = factory.createRepositoryCategoria();
 let idForDelete = null;
 let categoriaForUpdate = null;
+let dev = null;
+let empresa = null;
 
 describe("Teste de Repository de Categoria", () => {
   afterAll(async () => {
     await knex("categorias").del();
+    await knex("empresas").del();
+    await knex("devs").del();
   });
 
   beforeAll(async () => {
+    const returnDev = await knex("devs").returning(["*"]).insert({ urn: "tecnospeed" });
+    dev = returnDev.pop();
+    const returnEmpresa = await knex("empresas")
+      .returning(["*"])
+      .insert({ dev_id: dev.id, nome: "Centauro" });
+    empresa = returnEmpresa.pop();
+
     await knex("categorias").insert([
-      { nome: "Folha de Pagamento" },
-      { nome: "Categoria 1" },
-      { nome: "Categoria 2" },
-      { nome: "Categoria 3" }
+      { empresa_id: empresa.id, nome: "Folha de Pagamento" },
+      { empresa_id: empresa.id, nome: "Categoria 1" },
+      { empresa_id: empresa.id, nome: "Categoria 2" },
+      { empresa_id: empresa.id, nome: "Categoria 3" }
     ]);
 
     const respCategoriaForDelete = await knex("categorias")
       .returning(["id"])
-      .insert({ nome: "Categoria para teste de exclusão" });
+      .insert({ empresa_id: empresa.id, nome: "Categoria para teste de exclusão" });
     idForDelete = respCategoriaForDelete.pop().id;
 
     const respCategoriaForUpdate = await knex("categorias")
       .returning("*")
-      .insert({ nome: "Categoria para alteração" });
+      .insert({ empresa_id: empresa.id, nome: "Categoria para alteração" });
     categoriaForUpdate = respCategoriaForUpdate.pop();
   });
 
   test("testando a function save, sucesso", async () => {
-    const data = await categoriaRepository.save({ nome: "Combustíveis" });
+    const data = await categoriaRepository.save({ empresa_id: empresa.id, nome: "Combustíveis" });
     expect(data).not.toBeNull();
   });
 
@@ -57,7 +68,7 @@ describe("Teste de Repository de Categoria", () => {
 
   test("testando a function getAll", () => {
     categoriaRepository
-      .getAll()
+      .getAll(empresa.id)
       .then((data) => {
         expect(data).not.toBeNull();
         expect(data.length > 3).toBeTruthy();

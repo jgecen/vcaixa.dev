@@ -1,6 +1,6 @@
 const knex = require("../../src/knex");
 const app = require("../../src/server");
-const crateDevContemEmpresaMid = require("../../src/middleware/create.dev.contem.empresa.middleware");
+const crateDevMiddleware = require("../../src/middleware/create.dev.middleware");
 const supertest = require("supertest");
 let request = null;
 let dev = null;
@@ -13,7 +13,7 @@ describe("Teste de endpoint empresas ", () => {
   });
 
   beforeAll(async () => {
-    const middleware = crateDevContemEmpresaMid();
+    const middleware = crateDevMiddleware();
     app.get("/test/:urnDev/:idEmpresa", middleware.devContemEmpresa);
 
     app.get("/test/:urnDev/:idEmpresa", (req, res) => {

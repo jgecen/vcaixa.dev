@@ -1,12 +1,11 @@
 const createEmpresaService = require("../service/create.empresa.service");
 
-const createDevEmpresaMiddleware = () => {
+const createDevMiddleware = () => {
   const empresaService = createEmpresaService();
 
   const _devContemEmpresa = (req, res, next) => {
     const urnDev = req.params.urnDev;
     const idEmpresa = req.params.idEmpresa;
-
     empresaService
       .empresaPertenceAoDev(idEmpresa, urnDev)
       .then((empresaPertenceAoDev) => {
@@ -30,4 +29,4 @@ const createDevEmpresaMiddleware = () => {
   };
 };
 
-module.exports = createDevEmpresaMiddleware;
+module.exports = createDevMiddleware;
