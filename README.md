@@ -26,9 +26,13 @@ Na pasta do projeto execute
 
 > npm install
 
+# Migrações
+
 Para criar as tabelas dos dois banco de dados
 
 > yarn migrate-all
+
+# Testes automatizados
 
 Para executar todos os testes
 
