@@ -13,7 +13,7 @@ const createEmpresaService = () => {
   const _empresaPertenceAoDev = async (idEmpresa, urnDev) => {
     const dev = await _devRepo.devByUrn(urnDev);
     const empresa = await _empresaRepo.get(idEmpresa);
-    return dev.id == empresa.dev_id;
+    return dev && empresa && dev.id == empresa.dev_id;
   };
   return {
     save: _save,

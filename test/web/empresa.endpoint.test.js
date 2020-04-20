@@ -2,7 +2,6 @@ const knex = require("../../src/knex");
 const app = require("../../src/server");
 const supertest = require("supertest");
 const request = supertest(app);
-let categoriaForUpdate = null;
 
 describe("Teste de endpoint empresas ", () => {
   afterAll(async () => {
