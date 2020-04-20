@@ -4,7 +4,7 @@ const createMovimentoRepository = (config) => {
   const _knex = config.knex;
   const _deafultRepository = createDefaultRepository({ knex: _knex, table: "movimentos" });
 
-  const _listMovimentosDoDia = () => {
+  const _listMovimentosDoDia = (idEmpresa) => {
     return _knex("movimentos")
       .select()
       .join("categorias", "movimentos.categoria_id", "categorias.id")
@@ -16,7 +16,7 @@ const createMovimentoRepository = (config) => {
         "categorias.id as idCategoria",
         "categorias.nome as nomeCategoria"
       )
-      .where({ data: new Date() });
+      .where({ "movimentos.empresa_id": idEmpresa, data: new Date() });
   };
 
   return {

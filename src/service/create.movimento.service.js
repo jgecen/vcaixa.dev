@@ -3,8 +3,8 @@ const factoryRepository = require("../repository/factory.repository");
 const createMovimentoService = () => {
   const _repositoryMovimento = factoryRepository.createRepositoryMovimento();
 
-  const _movimentosDoDia = () => {
-    return _repositoryMovimento.listMovimentosDoDia().then((result) => {
+  const _movimentosDoDia = (idEmpresa) => {
+    return _repositoryMovimento.listMovimentosDoDia(idEmpresa).then((result) => {
       return _buildResut(result);
     });
   };

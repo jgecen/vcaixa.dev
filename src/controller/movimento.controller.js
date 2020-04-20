@@ -5,8 +5,9 @@ const createMovimentoController = () => {
   const _movimentoService = createMovimentoService();
 
   const _movimentosDoDia = (req, res) => {
+    const idEmpresa = req.params.idEmpresa;
     _movimentoService
-      .movimentosDoDia()
+      .movimentosDoDia(idEmpresa)
       .then((data) => {
         res.status(200);
         res.send(data);
