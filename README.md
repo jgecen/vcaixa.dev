@@ -30,6 +30,10 @@ Para criar as tabelas dos dois banco de dados
 
 > yarn migrate-all
 
-Para executar todos os testes os testes
+Para executar todos os testes
 
 > yarn test
+
+Para executar todos os testes e gerar relatório de cobertura de testes
+
+> yarn test:cover
