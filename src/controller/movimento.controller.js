@@ -1,37 +1,32 @@
 const createMovimentoService = require("../service/create.movimento.service");
 const { validationResult } = require("express-validator");
+const tratarRespostas = require("./respostas");
 
 const createMovimentoController = () => {
   const _movimentoService = createMovimentoService();
 
   const _movimentosDoDia = (req, res) => {
     const idEmpresa = req.params.idEmpresa;
-    _movimentoService
-      .movimentosDoDia(idEmpresa)
+    _movimentoService.movimentosDoDia(idEmpresa)
       .then((data) => {
-        res.status(200);
-        res.send(data);
+        tratarRespostas.resposta200(res, data);        
       })
-      .catch((err) => {
-        res.status(400);
-        res.send({ erro: err });
+      .catch((error) => {
+        tratarRespostas.resposta400(res, error);
       });
   };
 
   const _post = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
+      tratarRespostas.resposta422(res, errors);
     } else {
-      _movimentoService
-        .save(req.body)
+      _movimentoService.save(req.body)
         .then((data) => {
-          res.status(201);
-          res.send({ message: "Recurso criado com sucesso!", movimento: data });
+          tratarRespostas.resposta201(res, data);
         })
-        .catch((err) => {
-          res.status(412);
-          res.send({ erro: err.detail });
+        .catch((error) => {
+          tratarRespostas.resposta412(res, error);
         });
     }
   };
