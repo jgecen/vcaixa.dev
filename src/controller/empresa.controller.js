@@ -3,7 +3,7 @@ const createEmpresaSerice = require("../service/create.empresa.service");
 const tratarRespostas = require("./respostas");
 
 const createEmpresaController = () => {
-  let _empresaService = createEmpresaSerice();
+  const _empresaService = createEmpresaSerice();
 
   const _post = (req, res) => {
     const errors = validationResult(req);
