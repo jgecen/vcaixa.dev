@@ -66,7 +66,7 @@ describe("Teste de endpoint categorias ", () => {
         if (err) {
           return done(err);
         }
-        expect(res.body.recurso.pop().nome).toBe("ALTERADO");
+        expect(res.body.data.pop().nome).toBe("ALTERADO");
 
         return done();
       });
@@ -113,7 +113,7 @@ describe("Teste de endpoint categorias ", () => {
         if (err) {
           return done(err);
         }
-        expect(id).toEqual(res.body.id);
+        expect(id).toEqual(res.body.data.id);
         return done();
       });
   });
