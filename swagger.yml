@@ -54,6 +54,13 @@ definitions:
         type: integer  
       categoria_id:
         type: integer  
+  ResponseMovimento:
+    type: object
+    properties:
+      data: 
+        $ref: '#/definitions/Movimento'
+      message:
+        type: string        
   ResponseEmpresa:
     type: object
     properties:
@@ -161,9 +168,8 @@ paths:
           description: Altera uma categoria da respectiva empresa
           schema:
             $ref: '#/definitions/ResponseCategoria'
-
     get:
-      summary: Recupera uma lista de Categoria
+      summary: Recupera uma lista de Categoria de uma determinada empresa
       produces:
         - application/json
       parameters:
@@ -181,6 +187,7 @@ paths:
                   $ref: '#/definitions/Categoria'
               message:
                 type: string
+
   /categorias/{urnDev}/{idEmpresa}/{id}:
     get:
       summary: Recupera uma Categoria
@@ -218,4 +225,84 @@ paths:
                 type: integer
               message:
                 type: string
-  
+
+  /movimentos/{urnDev}/{idEmpresa}:
+    post:
+      summary: Cria um Movimento de uma determinada Empresa
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/urn-dev' 
+        - $ref: '#/parameters/id-empresa'
+        - in: 'body'
+          name: 'body'
+          description: "Um movimento para ser criado"
+          required: true
+          schema:
+            type: object
+            properties:
+              descricao:
+                type: string
+              tipo:
+                type: string
+              valor:
+                type: number
+                format: double      
+              empresa_id:
+                type: integer  
+              categoria_id:
+                type: integer  
+            required:
+             - descricao
+             - tipo
+             - valor
+             - empresa_id
+             - categoria_id
+      responses:
+        '201':
+          description: Cria uma novo movimento, com empresa e categoria devida
+          schema:
+            $ref: '#/definitions/ResponseMovimento'
+
+  /movimentos/{urnDev}/{idEmpresa}/resumo:
+    get:
+      summary: Recupera os movimentos do dia de uma determinada empresa
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/urn-dev' 
+        - $ref: '#/parameters/id-empresa'
+      responses:
+        '200':
+          description: Movimentos do dia de uma determinada empresa
+          schema:
+            type: object
+            properties:
+              data: 
+                type: object
+                properties:
+                  subTotal:
+                    type: number
+                  movimentacoes:
+                    type: array 
+                    items:
+                      type: object
+                      properties:
+                        id: 
+                          type: integer
+                        descricao:
+                          type: string
+                        tipo:
+                          type: string
+                        valor:
+                          type: number
+                          format: double      
+                        categoria:
+                          type: object
+                          properties:
+                            id: 
+                              type: integer
+                            nome:
+                              type: string
+              message:
+                type: string
