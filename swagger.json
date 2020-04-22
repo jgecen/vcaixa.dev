@@ -1,0 +1,484 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API para movimento de caixa, teste Tecnospeed",
+    "version": "1.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "definitions": {
+    "Dev": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "urn": {
+          "type": "string"
+        }
+      }
+    },
+    "Empresa": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "dev_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "Categoria": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "empresa_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "nome",
+        "empresa_id"
+      ]
+    },
+    "Movimento": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "descricao": {
+          "type": "string"
+        },
+        "tipo": {
+          "type": "string"
+        },
+        "valor": {
+          "type": "number",
+          "format": "double"
+        },
+        "empresa_id": {
+          "type": "integer"
+        },
+        "categoria_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "ResponseMovimento": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Movimento"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponseEmpresa": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Empresa"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponseCategoria": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Categoria"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "parameters": {
+    "urn-dev": {
+      "name": "urnDev",
+      "in": "path",
+      "description": "Essa URN a empresa de desenvolvimento recebe quando contratar os serviços da API",
+      "type": "string",
+      "required": true
+    },
+    "id-categoria": {
+      "name": "id",
+      "in": "path",
+      "description": "id da categoria",
+      "type": "integer",
+      "format": "int32",
+      "required": true
+    },
+    "id-empresa": {
+      "name": "idEmpresa",
+      "in": "path",
+      "description": "id da empresa",
+      "type": "integer",
+      "format": "int32",
+      "required": true
+    }
+  },
+  "paths": {
+    "/empresas/{urnDev}": {
+      "post": {
+        "summary": "Cria uma empresa",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/urn-dev"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Uma empresa para ser criada",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "nome"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cria uma nova empresa da respectiva Dev",
+            "schema": {
+              "$ref": "#/definitions/ResponseEmpresa"
+            }
+          }
+        }
+      }
+    },
+    "/categorias/{urnDev}/{idEmpresa}": {
+      "post": {
+        "summary": "Cria uma Categoria",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/urn-dev"
+          },
+          {
+            "$ref": "#/parameters/id-empresa"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Uma categoria para ser criada",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string"
+                },
+                "empresa_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "nome",
+                "empresa_id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cria uma nova categoria da respectiva empresa",
+            "schema": {
+              "$ref": "#/definitions/ResponseCategoria"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Altera uma Categoria",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/urn-dev"
+          },
+          {
+            "$ref": "#/parameters/id-empresa"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Uma categoria para ser alterada",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Categoria"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Altera uma categoria da respectiva empresa",
+            "schema": {
+              "$ref": "#/definitions/ResponseCategoria"
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Recupera uma lista de Categoria de uma determinada empresa",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/urn-dev"
+          },
+          {
+            "$ref": "#/parameters/id-empresa"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de Categorias",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Categoria"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categorias/{urnDev}/{idEmpresa}/{id}": {
+      "get": {
+        "summary": "Recupera uma Categoria",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/urn-dev"
+          },
+          {
+            "$ref": "#/parameters/id-empresa"
+          },
+          {
+            "$ref": "#/parameters/id-categoria"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoria",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "$ref": "#/definitions/Categoria"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Exclui uma Categoria",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/urn-dev"
+          },
+          {
+            "$ref": "#/parameters/id-empresa"
+          },
+          {
+            "$ref": "#/parameters/id-categoria"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoria",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movimentos/{urnDev}/{idEmpresa}": {
+      "post": {
+        "summary": "Cria um Movimento de uma determinada Empresa",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/urn-dev"
+          },
+          {
+            "$ref": "#/parameters/id-empresa"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Um movimento para ser criado",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": {
+                  "type": "string"
+                },
+                "tipo": {
+                  "type": "string"
+                },
+                "valor": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "empresa_id": {
+                  "type": "integer"
+                },
+                "categoria_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "descricao",
+                "tipo",
+                "valor",
+                "empresa_id",
+                "categoria_id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Cria uma novo movimento, com empresa e categoria devida",
+            "schema": {
+              "$ref": "#/definitions/ResponseMovimento"
+            }
+          }
+        }
+      }
+    },
+    "/movimentos/{urnDev}/{idEmpresa}/resumo": {
+      "get": {
+        "summary": "Recupera os movimentos do dia de uma determinada empresa",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/urn-dev"
+          },
+          {
+            "$ref": "#/parameters/id-empresa"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Movimentos do dia de uma determinada empresa",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "subTotal": {
+                      "type": "number"
+                    },
+                    "movimentacoes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "descricao": {
+                            "type": "string"
+                          },
+                          "tipo": {
+                            "type": "string"
+                          },
+                          "valor": {
+                            "type": "number",
+                            "format": "double"
+                          },
+                          "categoria": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "integer"
+                              },
+                              "nome": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
