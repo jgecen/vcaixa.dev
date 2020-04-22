@@ -32,6 +32,8 @@ Para criar as tabelas dos dois banco de dados
 
 > yarn migrate-all
 
+Após executar esse comando o banco de dados de desenvolvimento vai conter um registro na tabela devs. Dessa forma você já tem uma URN(tecnospeed) pra realizar seus testes.
+
 # Testes automatizados
 
 Para executar todos os testes
