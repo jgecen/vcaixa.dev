@@ -3,6 +3,6 @@ const empresaController = require("../controller/empresa.controller")();
 
 const router = express.Router();
 
-router.post("/:urn", empresaController.post);
+router.post("/:urnDev", empresaController.post);
 
 module.exports = router;

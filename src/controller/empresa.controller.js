@@ -11,7 +11,7 @@ const createEmpresaController = () => {
       tratarRespostas.resposta422(res, errors);
     } else {
       _empresaService
-        .save(req.params.urn, req.body)
+        .save(req.params.urnDev, req.body)
         .then((data) => {
           tratarRespostas.resposta201(res, data);
         })
