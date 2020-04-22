@@ -17,6 +17,7 @@ const createEmpresaService = () => {
   };
   return {
     save: _save,
+    get: _empresaRepo.get,
     empresaPertenceAoDev: _empresaPertenceAoDev
   };
 };
