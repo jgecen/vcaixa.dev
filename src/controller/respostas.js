@@ -16,7 +16,7 @@ module.exports = {
 
   resposta201: (res, data) => {
     res.status(201);
-    res.send({ message: "Recurso criado com sucesso!", recurso: data.pop() });
+    res.send({ message: "Recurso criado com sucesso!", data: data.pop() });
   },
 
   resposta400: (res, error) => {
