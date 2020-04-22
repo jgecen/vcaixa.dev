@@ -3,7 +3,7 @@ const createRepository = (config) => {
   const _table = config.table;
 
   const _save = (obj) => {
-    return _knex(_table).returning("*").insert(obj);
+    return _knex(_table).returning("*").first().insert(obj);
   };
 
   const _update = (obj) => {

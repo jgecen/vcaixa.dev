@@ -7,16 +7,16 @@ module.exports = {
   resposta200: _resposta200,
 
   respostaAlteracao200: (res, data) => {
-    _resposta200(res, data, "Recurso alterado com sucesso!");
+    _resposta200(res, data.pop(), "Recurso alterado com sucesso!");
   },
 
   respostaExclusao200: (res, data) => {
-    _resposta200(res, data, "Recurso excluido com sucesso!");
+    _resposta200(res, data.pop(), "Recurso excluido com sucesso!");
   },
 
   resposta201: (res, data) => {
     res.status(201);
-    res.send({ message: "Recurso criado com sucesso!", recurso: data });
+    res.send({ message: "Recurso criado com sucesso!", recurso: data.pop() });
   },
 
   resposta400: (res, error) => {
