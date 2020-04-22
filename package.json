@@ -10,7 +10,8 @@
     "test:W": "jest --detectOpenHandles --watchAll",
     "migrate-test": "knex migrate:latest --env test",
     "migrate": "knex migrate:latest",
-    "migrate-all": "yarn migrate ; yarn migrate-test"
+    "migrate-all": "yarn migrate ; yarn migrate-test ; yarn seed",
+    "seed":"knex seed:run"
   },
   "repository": {
     "type": "git",
