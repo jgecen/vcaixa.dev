@@ -46,4 +46,4 @@ Para executar todos os testes e gerar relatório de cobertura de testes
 
 > yarn test:cover
 
-http://htmlpreview.github.io/https://github.com/jgecen/vcaixa.dev/blob/master/doc/index.html
+http://htmlpreview.github.io/?https://github.com/jgecen/vcaixa.dev/blob/master/doc/index.html
