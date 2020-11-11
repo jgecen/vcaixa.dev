@@ -34,6 +34,8 @@ Para criar as tabelas dos dois banco de dados
 
 Após executar esse comando o banco de dados de desenvolvimento vai conter um registro na tabela devs. Dessa forma você já tem uma URN(tecnospeed) pra realizar seus testes.
 
+
+
 # Testes automatizados
 
 Para executar todos os testes
@@ -43,3 +45,5 @@ Para executar todos os testes
 Para executar todos os testes e gerar relatório de cobertura de testes
 
 > yarn test:cover
+
+http://htmlpreview.github.io/https://github.com/jgecen/vcaixa.dev/blob/master/doc/index.html
